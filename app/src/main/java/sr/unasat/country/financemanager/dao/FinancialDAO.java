@@ -43,14 +43,14 @@ public class FinancialDAO extends SQLiteOpenHelper {
     }
 
     private void setDefaultCredentials() {
-        User user = findOneRecordByUsername("admin");
+        User user = findOneRecordByUsername("Tesla");
         if (user != null) {
             return;
         }
         //Set default username and password
         ContentValues contentValues = new ContentValues();
-        contentValues.put(USER_USERNAME, "admin");
-        contentValues.put(USER_PASSWORD, "admin");
+        contentValues.put(USER_USERNAME, "Tesla");
+        contentValues.put(USER_PASSWORD, "Tesla");
         insertOneRecord(USER_TABLE, contentValues);
     }
 
@@ -92,7 +92,7 @@ public class FinancialDAO extends SQLiteOpenHelper {
     public User findOneRecordByUsername(String username) {
         User user = null;
         SQLiteDatabase db = getReadableDatabase();
-        String sql = String.format("select * from %s where %s = '%s'", USER_TABLE, USER_USERNAME, username);
+        String sql = String.format("select id, username, password from %s where %s = '%s'", USER_TABLE, USER_USERNAME, username);
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
@@ -112,4 +112,43 @@ public class FinancialDAO extends SQLiteOpenHelper {
         db.close();
         return users;
     }
+
+    public int updateRecord(String table, ContentValues contentValues, String username) {
+        SQLiteDatabase db = getWritableDatabase();
+        int effectedRows = 0;
+        String whereClause = String.format("%s = ?",USER_USERNAME);
+        String[] whereArgs = {username};
+        effectedRows = db.update(table, contentValues, whereClause, whereArgs); // update user set username = [new value] where username = 'admin';
+        return effectedRows;
+    }
+
+    public int deleteRecord(String table, String username) {
+        SQLiteDatabase db = getWritableDatabase();
+        int effectedRows = 0;
+        String whereClause = String.format("%s = ?",USER_USERNAME);
+        String[] whereArgs = {username};
+        effectedRows = db.delete(table, whereClause, whereArgs); // delete from user where username = 'spiderman2'
+        return effectedRows;
+    }
+
+/*    public int updateRecord(ContentValues contentValues, String id, String username) {
+        SQLiteDatabase db = getWritableDatabase();
+        int effectedRows = 0;
+        String whereClause = String.format("%s = ? OR %s = ?", ID, USER_USERNAME);
+        String[] whereArgs = {id, username};
+        effectedRows = db.update(USER_TABLE, contentValues, whereClause, whereArgs); // update user where id = 1 or username = 'admin'
+        return effectedRows;
+    }*/
+
+
+
+/*    public int deleteRecord(String weight, String date) {
+        SQLiteDatabase db = getWritableDatabase();
+        int effectedRows = 0;
+        String whereClause = String.format("%s = ? OR %s = ?", TABLE_WI_INFO_WEIGHT, TABLE_WI_INFO_DATE);
+        String[] whereArgs = {weight, date};
+        effectedRows = db.delete(TABLE_WI_INFO_NAME, whereClause, whereArgs);
+        return effectedRows;
+    }*/
+
 }

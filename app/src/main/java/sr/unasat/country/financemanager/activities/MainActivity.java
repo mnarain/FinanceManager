@@ -27,28 +27,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         financialDAO = new FinancialDAO(this);
-        User user = financialDAO.findOneRecordByUsername("admin");
+        //User user = financialDAO.findOneRecordByUsername("admin");
 
-        List<ContentValues> records = new ArrayList<>();
+/*        List<ContentValues> records = new ArrayList<>();
 
       //insert record
         ContentValues record1 = new ContentValues();
-        record1.put(USER_USERNAME, "spiderman");
+        record1.put(USER_USERNAME, "spiderman2");
         record1.put(USER_PASSWORD, "pwd");
-        records.add(record1);
+        records.add(record1);*/
       //  long result =  financialDAO.insertOneRecord(USER_TABLE, record1);
       //  user = financialDAO.findOneRecordByUsername("spiderman");
-        ContentValues record2 = new ContentValues();
-        record2.put(USER_USERNAME, "superman");
+    /*    ContentValues record2 = new ContentValues();
+        record2.put(USER_USERNAME, "superman2");
         record2.put(USER_PASSWORD, "pwd");
         records.add(record2);
 
         ContentValues record3 = new ContentValues();
-        record3.put(USER_USERNAME, "wonderwoman");
+        record3.put(USER_USERNAME, "wonderwoman2");
         record3.put(USER_PASSWORD, "pwd");
-        records.add(record3);
+        records.add(record3);*/
 
-        financialDAO.insertMultipleRecord(USER_TABLE, records);
+       // financialDAO.insertMultipleRecord(USER_TABLE, records);
+
+        ContentValues record = new ContentValues();
+        record.put(USER_USERNAME, "Jesica");
+
+        financialDAO.updateRecord(USER_TABLE, record, "wonderwoman2");
+
+        financialDAO.deleteRecord(USER_TABLE, "spiderman2");
+
+
 
         TextView credentialsTextView = (TextView) findViewById(R.id.credentials);
         List<User> users = financialDAO.findAllRecords(USER_TABLE);
