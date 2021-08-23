@@ -21,4 +21,5 @@ Maak de insert method voor 1 record tot een async task.zie boek hiervoor.
 huiswerk gegeven: hoofdstuk 2, 3, 15, 16 topics activities(switch activity with intent), use intent to call other android applications(gmail, whatsapp)
 huiswerk todo: hoofdstuk 17(cursor, async(optional)) 9, 18, 19 --> start en bound serivice. optional menu.
 
+De bovenstaande hoofdstukken/topics zijn tevens de leerstof voor het tentamen.
 
